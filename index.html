@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BFSI Quiz</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(to right, #1c92d2, #f2fcfe);
+            margin: 0;
+            padding: 0;
+            color: #333;
+            overflow: auto;
+        }
+        .container {
+            max-width: 1000px;
+            width: 100%;
+            margin: 30px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 1s ease-in-out;
+        }
+        h2 {
+            color: #007BFF;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 28px;
+            animation: slideIn 0.5s ease-in-out;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            animation: fadeIn 1s ease-in-out;
+        }
+        input[type="text"], input[type="email"], input[type="tel"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            transition: border-color 0.3s ease;
+        }
+        input[type="text"]:focus, input[type="email"]:focus, input[type="tel"]:focus {
+            border-color: #007BFF;
+        }
+        button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 10px;
+            background: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        button:hover {
+            background: #0056b3;
+            transform: translateY(-2px);
+        }
+        .question {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 4px;
+            border: 1px solid #eee;
+            transition: transform 0.3s ease-in-out;
+        }
+        .question:hover {
+            transform: scale(1.02);
+        }
+        .question p {
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+        .question label {
+            display: block;
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        .question input {
+            margin-right: 10px;
+            cursor: pointer;
+        }
+        .result {
+            display: none;
+            text-align: center;
+            animation: fadeInUp 1s ease-in-out;
+        }
+        .circular-progress {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            background: conic-gradient(#007BFF 0% 0%, #007BFF 0% 100%, #ddd 0% 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+        }
+        .circular-progress::before {
+            content: '';
+            position: absolute;
+            width: 130px;
+            height: 130px;
+            background: #fff;
+            border-radius: 50%;
+            display: block;
+        }
+        .circular-progress .percentage {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+            font-size: 20px;
+        }
+        .retake-button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .retake-button:hover {
+            background: #0056b3;
+            transform: translateY(-2px);
+        }
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideIn {
+            0% { opacity: 0; transform: translateX(-20px); }
+            100% { opacity: 1; transform: translateX(0); }
+        }
+        .scrollable {
+            overflow-y: auto;
+            max-height: 70vh;
+        }
+        /* Add smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form id="userInfoForm" class="scrollable" onsubmit="return validateForm()">
+            <h2>User Information</h2>
+            <label for="firstName">First Name:</label>
+            <input type="text" id="firstName" name="firstName" pattern="[A-Za-z]+" title="Please enter letters only" required>
+            <label for="lastName">Last Name:</label>
+            <input type="text" id="lastName" name="lastName" pattern="[A-Za-z]+" title="Please enter letters only" required>
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" name="phone" pattern="\d{10}" title="Please enter a 10-digit phone number" required>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <button type="submit" id="startQuizButton">Start Quiz</button>
+        </form>
+
+        <div id="questionsPage" style="display:none;">
+            <h2>BFSI Quiz</h2>
+            <form id="quizForm" class="scrollable">
+                <!-- Questions will be dynamically added here -->
+            </form>
+            <button type="button" onclick="submitQuiz()">Submit Quiz</button>
+        </div>
+
+        <div class="result" id="result">
+            <h2>Quiz Result</h2>
+            <div class="circular-progress" id="circularProgress">
+                <div class="percentage">
+                    <span id="percentage">0%</span>
+                    <span id="scoreDetails">0 out of 0</span>
+                </div>
+            </div>
+            <button class="retake-button" onclick="retakeQuiz()">Retake Quiz</button>
+        </div>
+    </div>
+
+    <script>
+    const questionsData = [
+        {
+            question: "Which of the following is not a function of a commercial bank?",
+            options: ["Accepting deposits", "Granting loans", "Issuing currency", "Providing locker facilities"],
+            correctAnswer: 2  // Index of the correct answer in the options array (C is at index 2)
+        },
+        {
+            question: "What does CRR stand for in banking terminology?",
+            options: ["Cash Reserve Ratio", "Credit Rating Ratio", "Current Reserve Ratio", "Cash Recovery Ratio"],
+            correctAnswer: 0  // Index of the correct answer in the options array (A is at index 0)
+        },
+        {
+            question: "Which of the following is a negotiable instrument?",
+            options: ["Fixed deposit receipt", "Savings account passbook", "Demand draft", "Safe deposit locker key"],
+            correctAnswer: 2  // Index of the correct answer in the options array (C is at index 2)
+        },
+        {
+            question: "Which act governs the functioning of cooperative banks in India?",
+            options: ["Reserve Bank of India Act", "Banking Regulation Act", "Companies Act", "Cooperative Societies Act"],
+            correctAnswer: 3  // Index of the correct answer in the options array (D is at index 3)
+        },
+        {
+            question: "Which of the following is a primary function of the RBI?",
+            options: ["Managing foreign exchange", "Providing loans to public", "Offering insurance services", "Accepting deposits"],
+            correctAnswer: 0  // Index of the correct answer in the options array (A is at index 0)
+        },
+        {
+            question: "What is the primary objective of investment banks?",
+            options: ["Accepting deposits from individuals", "Providing loans to farmers", "Assisting companies in raising capital", "Offering retirement plans"],
+            correctAnswer: 2  // Index of the correct answer in the options array (C is at index 2)
+        },
+        {
+            question: "Which financial instrument represents ownership in a company?",
+            options: ["Bond", "Mutual fund", "Equity share", "Fixed deposit"],
+            correctAnswer: 2  // Index of the correct answer in the options array (C is at index 2)
+        },
+        {
+            question: "Which of the following is a feature of mutual funds?",
+            options: ["Fixed returns", "Diversification of investment", "Tax-free interest", "Guaranteed capital protection"],
+            correctAnswer: 1  // Index of the correct answer in the options array (B is at index 1)
+        },
+        {
+            question: "What does NAV stand for in mutual funds?",
+            options: ["Net Average Value", "Nominal Asset Value", "Net Asset Value", "New Annual Value"],
+            correctAnswer: 2  // Index of the correct answer in the options array (C is at index 2)
+        },
+        {
+            question: "Which organization regulates the securities market in India?",
+            options: ["Reserve Bank of India", "Securities and Exchange Board of India", "Ministry of Finance", "Bombay Stock Exchange"],
+            correctAnswer: 1  // Index of the correct answer in the options array (B is at index 1)
+        },
+        {
+            question: "What type of insurance provides coverage for medical expenses?",
+            options: ["Life insurance", "Health insurance", "Property insurance", "Liability insurance"],
+            correctAnswer: 1  // Index of the correct answer in the options array (B is at index 1)
+        },
+        {
+            question: "Which principle of insurance states that insured must disclose all material facts?",
+            options: ["Indemnity", "Subrogation", "Utmost good faith", "Proximate cause"],
+            correctAnswer: 2  // Index of the correct answer in the options array (C is at index 2)
+        },
+        {
+            question: "What does the term 'premium' refer to in insurance?",
+            options: ["The amount paid by the insurer to the insured", "The amount paid by the insured to the insurer", "The profit made by the insurance company", "The market value of the insured property"],
+            correctAnswer: 1  // Index of the correct answer in the options array (B is at index 1)
+        },
+        {
+            question: "Which of the following is not a type of general insurance?",
+            options: ["Health insurance", "Marine insurance", "Fire insurance", "Whole life insurance"],
+            correctAnswer: 3  // Index of the correct answer in the options array (D is at index 3)
+        },
+        {
+            question: "What is the term used for the amount that the policyholder must pay before the insurance company pays a claim?",
+            options: ["Deductible", "Premium", "Coverage", "Benefit"],
+            correctAnswer: 0  // Index of the correct answer in the options array (A is at index 0)
+        },
+        {
+            question: "Which insurance principle prevents insured from making a profit out of insurance?",
+            options: ["Subrogation", "Contribution", "Indemnity", "Insurable interest"],
+            correctAnswer: 2  // Index of the correct answer in the options array (C is at index 2)
+        },
+        {
+            question: "What does 'sum assured' mean in life insurance?",
+            options: ["The amount paid in premiums", "The total bonus payable", "The guaranteed amount to be paid on maturity or death", "The policyholder's annual income"],
+            correctAnswer: 2  // Index of the correct answer in the options array (C is at index 2)
+        },
+        {
+            question: "Which type of life insurance provides coverage for a specific term period?",
+            options: ["Whole life insurance", "Term insurance", "Endowment policy", "Money back policy"],
+            correctAnswer: 1  // Index of the correct answer in the options array (B is at index 1)
+        },
+        {
+            question: "Which of the following is a feature of term insurance?",
+            options: ["Premiums increase with age", "Provides cash value accumulation", "Covers for entire life", "Has a maturity benefit"],
+            correctAnswer: 0  // Index of the correct answer in the options array (A is at index 0)
+        },
+        {
+            question: "Which insurance policy covers risks related to transportation of goods?",
+            options: ["Health insurance", "Marine insurance", "Fire insurance", "Term insurance"],
+            correctAnswer: 1  // Index of the correct answer in the options array (B is at index 1)
+        }
+    ];
+
+    // Function to validate the user information form and start the quiz
+    function validateForm() {
+        const form = document.getElementById('userInfoForm');
+        if (form.checkValidity()) {
+            document.getElementById('userInfoForm').style.display = 'none';
+            document.getElementById('questionsPage').style.display = 'block';
+            displayQuestions();
+            return false;
+        }
+    }
+
+    // Function to display questions dynamically
+    function displayQuestions() {
+        const quizForm = document.getElementById('quizForm');
+        questionsData.forEach((q, index) => {
+            const questionDiv = document.createElement('div');
+            questionDiv.className = 'question';
+            questionDiv.innerHTML = `<p>${index + 1}. ${q.question}</p>`;
+            q.options.forEach((option, i) => {
+                questionDiv.innerHTML += `
+                    <label>
+                        <input type="radio" name="question${index}" value="${i}" required> ${option}
+                    </label>
+                `;
+            });
+            quizForm.appendChild(questionDiv);
+        });
+    }
+
+    // Function to submit the quiz and calculate score
+    function submitQuiz() {
+        const form = document.getElementById('quizForm');
+        const formData = new FormData(form);
+        let score = 0;
+        questionsData.forEach((q, index) => {
+            if (parseInt(formData.get(`question${index}`)) === q.correctAnswer) {
+                score++;
+            }
+        });
+        showResult(score);
+    }
+
+    // Function to display quiz result
+    function showResult(score) {
+        const totalQuestions = questionsData.length;
+        const percentage = (score / totalQuestions) * 100;
+
+        document.getElementById('percentage').textContent = `${percentage.toFixed(2)}%`;
+        document.getElementById('scoreDetails').textContent = `${score} out of ${totalQuestions}`;
+        document.getElementById('circularProgress').style.background = `conic-gradient(#007BFF ${percentage}%, #ddd ${percentage}%)`;
+
+        document.getElementById('questionsPage').style.display = 'none';
+        document.getElementById('result').style.display = 'block';
+    }
+
+    // Function to retake the quiz
+    function retakeQuiz() {
+        // Clear user information form
+        document.getElementById('userInfoForm').reset();
+
+        // Reset quiz form
+        document.getElementById('quizForm').innerHTML = '';
+
+        // Hide result and show user information form
+        document.getElementById('result').style.display = 'none';
+        document.getElementById('questionsPage').style.display = 'none'; // Ensure questions page is hidden if showing
+
+        document.getElementById('userInfoForm').style.display = 'block';
+
+        // Scroll to top of the page for a better user experience
+        window.scrollTo(0, 0);
+    }
+    </script>
+
+</body>
+</html>
