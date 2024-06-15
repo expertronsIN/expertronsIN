@@ -157,6 +157,23 @@
             overflow-y: auto;
             max-height: 70vh;
         }
+        .card-container {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+        .card {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 22%;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
         /* Add smooth scrolling */
         html {
             scroll-behavior: smooth;
@@ -194,6 +211,24 @@
                     <span id="scoreDetails">0 out of 0</span>
                 </div>
             </div>
+            <div class="card-container">
+                <div class="card">
+                    <h3>Card Title 1</h3>
+                    <p>Card content goes here. It can be a brief description or any relevant information.</p>
+                </div>
+                <div class="card">
+                    <h3>Card Title 2</h3>
+                    <p>Card content goes here. It can be a brief description or any relevant information.</p>
+                </div>
+                <div class="card">
+                    <h3>Card Title 3</h3>
+                    <p>Card content goes here. It can be a brief description or any relevant information.</p>
+                </div>
+                <div class="card">
+                    <h3>Card Title 4</h3>
+                    <p>Card content goes here. It can be a brief description or any relevant information.</p>
+                </div>
+            </div>
             <button class="retake-button" onclick="retakeQuiz()">Retake Quiz</button>
         </div>
     </div>
@@ -204,36 +239,6 @@
             question: "Which of the following is not a function of a commercial bank?",
             options: ["Accepting deposits", "Granting loans", "Issuing currency", "Providing locker facilities"],
             correctAnswer: 2
-        },
-        {
-            question: "What does CRR stand for in banking terminology?",
-            options: ["Cash Reserve Ratio", "Credit Rating Ratio", "Current Reserve Ratio", "Cash Recovery Ratio"],
-            correctAnswer: 0
-        },
-        {
-            question: "Which of the following is a negotiable instrument?",
-            options: ["Fixed deposit receipt", "Savings account passbook", "Demand draft", "Safe deposit locker key"],
-            correctAnswer: 2
-        },
-        {
-            question: "Which act governs the functioning of cooperative banks in India?",
-            options: ["Reserve Bank of India Act", "Banking Regulation Act", "Companies Act", "Cooperative Societies Act"],
-            correctAnswer: 3
-        },
-        {
-            question: "Which of the following is a primary function of the RBI?",
-            options: ["Managing foreign exchange", "Providing loans to public", "Offering insurance services", "Accepting deposits"],
-            correctAnswer: 0
-        },
-        {
-            question: "What is the main purpose of a bank's Statutory Liquidity Ratio (SLR)?",
-            options: ["To control inflation", "To manage liquidity", "To stabilize interest rates", "To increase profitability"],
-            correctAnswer: 1
-        },
-        {
-            question: "Which of the following is an asset for a bank?",
-            options: ["Deposits", "Loans given", "Savings accounts", "Current accounts"],
-            correctAnswer: 1
         },
         {
             question: "What is the full form of NEFT?",
