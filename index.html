@@ -304,6 +304,36 @@
             question: "What is the tenure of the RBI Governor?",
             options: ["3 years", "4 years", "5 years", "6 years"],
             correctAnswer: 2
+        },
+        {
+            question: "What is the maximum limit of deposit insurance cover provided by DICGC?",
+            options: ["₹1 lakh", "₹2 lakhs", "₹5 lakhs", "₹10 lakhs"],
+            correctAnswer: 2
+        },
+        {
+            question: "Which bank is often referred to as the 'Bankers' Bank'?",
+            options: ["World Bank", "Reserve Bank of India", "State Bank of India", "Bank of India"],
+            correctAnswer: 1
+        },
+        {
+            question: "What does CRR stand for in banking?",
+            options: ["Credit Reserve Ratio", "Cash Reserve Ratio", "Currency Reserve Ratio", "Capital Reserve Ratio"],
+            correctAnswer: 1
+        },
+        {
+            question: "Which type of bank account is primarily meant for salaried individuals?",
+            options: ["Current account", "Recurring deposit account", "Savings account", "Fixed deposit account"],
+            correctAnswer: 2
+        },
+        {
+            question: "Which financial institution provides long-term finance to industries?",
+            options: ["Commercial banks", "Cooperative banks", "Development banks", "Central banks"],
+            correctAnswer: 3
+        },
+        {
+            question: "Which financial instrument is used to borrow short-term funds by issuing at a discount?",
+            options: ["Treasury Bills", "Debentures", "Shares", "Bonds"],
+            correctAnswer: 0
         }
     ];
 
@@ -381,6 +411,8 @@
         document.getElementById('questionsPage').style.display = 'none';
         document.getElementById('userInfoForm').style.display = 'block';
         document.getElementById('userInfoForm').reset();
+        const radioButtons = document.querySelectorAll('input[type="radio"]');
+        radioButtons.forEach(rb => rb.checked = false);
         document.getElementById('quizForm').reset();
     }
     </script>
