@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BFSI Quiz</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(to right, #1c92d2, #f2fcfe);
+            margin: 0;
+            padding: 0;
+            color: #333;
+            overflow: auto;
+        }
+        .container {
+            max-width: 1000px;
+            width: 100%;
+            margin: 30px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 1s ease-in-out;
+        }
+        h2 {
+            color: #007BFF;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 28px;
+            animation: slideIn 0.5s ease-in-out;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            animation: fadeIn 1s ease-in-out;
+        }
+        input[type="text"], input[type="email"], input[type="tel"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            transition: border-color 0.3s ease;
+        }
+        input[type="text"]:focus, input[type="email"]:focus, input[type="tel"]:focus {
+            border-color: #007BFF;
+        }
+        button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 10px;
+            background: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        button:hover {
+            background: #0056b3;
+            transform: translateY(-2px);
+        }
+        .question {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 4px;
+            border: 1px solid #eee;
+            transition: transform 0.3s ease-in-out;
+        }
+        .question:hover {
+            transform: scale(1.02);
+        }
+        .question p {
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+        .question label {
+            display: block;
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        .question input {
+            margin-right: 10px;
+            cursor: pointer;
+        }
+        .question input[required] {
+            box-shadow: none;
+        }
+        .result {
+            display: none;
+            text-align: center;
+            animation: fadeInUp 1s ease-in-out;
+        }
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideIn {
+            0% { opacity: 0; transform: translateX(-20px); }
+            100% { opacity: 1; transform: translateX(0); }
+        }
+        .scrollable {
+            overflow-y: auto;
+            max-height: 70vh;
+        }
+        .card-container {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+        .card {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 98%;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .fail {
+            color: red;
+            font-size: 60px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        .red-cross {
+            font-size: 80px;
+            color: red;
+        }
+        .circular-progress {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 20px auto;
+            background: conic-gradient(red 0%, #ddd 0%);
+        }
+        .circular-progress .percentage {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+        .circular-progress .percentage span {
+            display: block;
+        }
+        .circular-progress .percentage #percentage {
+            font-size: 30px;
+            font-weight: bold;
+        }
+        .circular-progress .percentage #scoreDetails {
+            font-size: 14px;
+        }
+        /* Add smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+        .timer {
+            font-size: 24px;
+            color: #FF0000;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .banner {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .banner img {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .banner img:hover {
+            transform: translateY(-5px);
+        }
+        /* New CSS rules */
+        .card-image .card.image-card {
+            /* Existing styles */
+            width: 98%; /* Adjust width to match other cards */
+            text-align: center;
+            transition: transform 0.3s;
+            /* Add the following styles for matching dimensions */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .card.image-card img {
+            max-width: 100%;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <form id="userInfoForm" class="scrollable">
+        <h2>User Information</h2>
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" name="firstName" pattern="[A-Za-z]+" title="Please enter letters only" required>
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" name="lastName" pattern="[A-Za-z]+" title="Please enter letters only" required>
+        <label for="phone">Phone Number:</label>
+        <input type="tel" id="phone" name="phone" pattern="\d{10}" title="Please enter a 10-digit phone number" required>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        <button type="submit" id="startQuizButton">Start Quiz</button>
+    </form>
+
+    <div id="questionsPage" style="display:none;">
+        <h2>BFSI Quiz</h2>
+        <div class="timer" id="timer">05:00</div> <!-- Timer display -->
+        <form id="quizForm" class="scrollable">
+            <!-- Questions will be dynamically added here -->
+        </form>
+        <button id="submitQuizButton" form="quizForm" type="submit">Submit Quiz</button>
+    </div>
+
+    <div class="result" id="result">
+        <h2>Quiz Result:</h2>
+        <div id="resultContent">
+            <div class="circular-progress" id="circularProgress" style="display: none;">
+                <div class="percentage">
+                    <span id="percentage">0%</span>
+                    <span id="scoreDetails">0 out of 20</span>
+                </div>
+            </div>
+            <div id="failContent">
+                <div class="fail">Fail</div>
+                <div class="red-cross">&#10060;</div>
+            </div>
+            <div class="card-container">
+                <div class="card">
+                    <h3>Enhance Your Financial Literacy</h3>
+                    <p>Understanding financial concepts is crucial in the BFSI sector. Focus on improving your knowledge in areas like personal finance, investment strategies, and financial planning. Consider taking online courses or reading books on these topics to boost your confidence and competence.</p>
+                </div>
+                <div class="card">
+                    <h3>Gain Practical Experience</h3>
+                    <p>Seek internships, part-time jobs, or volunteer opportunities in banks, financial institutions, or insurance companies. Practical experience will give you insights into the industry, help you develop relevant skills, and enhance your resume for future career prospects.</p>
+                </div>
+                <div class="card">
+                    <h3>Network with Industry Professionals</h3>
+                    <p>Building a strong professional network is essential in the BFSI sector. Attend industry events, join online forums, and connect with professionals on platforms like LinkedIn. Networking can open doors to job opportunities, mentorship, and valuable industry knowledge.</p>
+                </div>
+                <div class="card">
+                    <h3>Stay Updated on Industry Trends</h3>
+                    <p>The BFSI sector is dynamic and constantly evolving. Stay informed about the latest trends, regulations, and technological advancements in the industry. Subscribe to industry publications, follow reputable news sources, and participate in webinars or seminars to stay ahead of the curve.</p>
+                </div>
+            </div>
+            <div class="card image-card" onclick="window.open('https://www.expertrons.com/app/courses/63986684ce56f70c21b01c8c?SourceCampaign=website&SourceMedium=footer', '_blank')">
+                <img src="https://www.dropbox.com/scl/fi/lyecw33pzcrpathxfa1kn/BFSI-IMG.png?rlkey=9hhabn6rkykd711vcpo4lfqz5&st=po2gn7j5&raw=1" alt="Enhance Skills and step in BFSI">
+                <h3>Enhance Skills and step in BFSI</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const userInfoForm = document.getElementById("userInfoForm");
+        const startQuizButton = document.getElementById("startQuizButton");
+        const questionsPage = document.getElementById("questionsPage");
+        const quizForm = document.getElementById("quizForm");
+        const result = document.getElementById("result");
+        const resultContent = document.getElementById("resultContent");
+        const failContent = document.getElementById("failContent");
+        const circularProgress = document.getElementById("circularProgress");
+        const percentageSpan = document.getElementById("percentage");
+        const scoreDetailsSpan = document.getElementById("scoreDetails");
+        const timerElement = document.getElementById("timer");
+
+        // Fisher-Yates (aka Knuth) Shuffle
+        function shuffle(array) {
+            let currentIndex = array.length, randomIndex;
+
+            // While there remain elements to shuffle...
+            while (currentIndex != 0) {
+
+                // Pick a remaining element...
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex--;
+
+                // And swap it with the current element.
+                [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+            }
+
+            return array;
+        }
+
+
+        const questions = [
+            {
+                question: "What is the primary function of a commercial bank?",
+                options: ["To print currency", "To regulate the stock market", "To accept deposits and provide loans", "To control inflation"],
+                answer: "To accept deposits and provide loans"
+            },
+            {
+                question: "What does 'BFSI' stand for?",
+                options: ["Banking, Finance, Security, and Insurance", "Banking, Financial Services, and Insurance", "Business, Financial Services, and Investment", "Banking, Funding, and Security Initiatives"],
+                answer: "Banking, Financial Services, and Insurance"
+            },
+            {
+                question: "What is an 'IPO' in the stock market?",
+                options: ["International Purchase Order", "Initial Public Offering", "Independent Public Organization", "Investment Policy Outline"],
+                answer: "Initial Public Offering"
+            },
+            {
+                question: "Which regulatory body oversees the securities market in the United States?",
+                options: ["FDIC", "SEC", "CFTC", "IRS"],
+                answer: "SEC"
+            },
+            {
+                question: "What is the primary purpose of insurance?",
+                options: ["To generate profit for insurance companies", "To protect against financial loss", "To invest in the stock market", "To provide loans to individuals"],
+                answer: "To protect against financial loss"
+            },
+            {
+                question: "What is a 'mutual fund'?",
+                options: ["A type of bank account", "A loan given by a bank", "An investment vehicle pooling funds from multiple investors", "A government bond"],
+                answer: "An investment vehicle pooling funds from multiple investors"
+            },
+            {
+                question: "Which term describes the total market value of all final goods and services produced within a country in a given period?",
+                options: ["GDP", "GNP", "CPI", "PPP"],
+                answer: "GDP"
+            },
+            {
+                question: "What does 'liquidity' refer to in financial terms?",
+                options: ["The profitability of a company", "The amount of debt a company has", "The ease with which an asset can be converted into cash", "The total value of a company's assets"],
+                answer: "The ease with which an asset can be converted into cash"
+            },
+            {
+                question: "What is a 'bond' in financial markets?",
+                options: ["A type of stock", "A loan made by an investor to a borrower", "An equity investment", "A derivative product"],
+                answer: "A loan made by an investor to a borrower"
+            },
+            {
+                question: "What does 'ROI' stand for?",
+                options: ["Return on Investment", "Rate of Inflation", "Return on Insurance", "Rate of Interest"],
+                answer: "Return on Investment"
+            },
+            {
+                question: "Which of the following is a non-banking financial institution?",
+                options: ["Commercial Bank", "Credit Union", "Insurance Company", "Central Bank"],
+                answer: "Insurance Company"
+            },
+            {
+                question: "What is the main role of a central bank?",
+                options: ["To provide loans to the public", "To regulate and oversee the banking system", "To set tax rates", "To manage the stock market"],
+                answer: "To regulate and oversee the banking system"
+            },
+            {
+                question: "What is 'inflation'?",
+                options: ["A decrease in the general price level of goods and services", "An increase in the general price level of goods and services", "A measure of economic growth", "A type of investment risk"],
+                answer: "An increase in the general price level of goods and services"
+            },
+            {
+                question: "Which financial statement shows a company's assets, liabilities, and equity at a specific point in time?",
+                options: ["Income Statement", "Cash Flow Statement", "Balance Sheet", "Statement of Retained Earnings"],
+                answer: "Balance Sheet"
+            },
+            {
+                question: "What does 'diversification' mean in investment?",
+                options: ["Investing in a single type of asset", "Spreading investments across various assets to reduce risk", "Focusing on high-risk investments only", "Avoiding investments in foreign markets"],
+                answer: "Spreading investments across various assets to reduce risk"
+            },
+            {
+                question: "Which type of account typically offers the highest interest rate?",
+                options: ["Checking Account", "Savings Account", "Money Market Account", "Certificate of Deposit (CD)"],
+                answer: "Certificate of Deposit (CD)"
+            },
+            {
+                question: "What is the purpose of a 'credit score'?",
+                options: ["To measure a person's investment performance", "To evaluate the creditworthiness of an individual", "To track a person's bank account activity", "To determine a person's annual income"],
+                answer: "To evaluate the creditworthiness of an individual"
+            },
+            {
+                question: "What is 'capital' in financial terms?",
+                options: ["Money invested in a business to generate income", "The total sales of a company", "The debts of a company", "The revenue generated from sales"],
+                answer: "Money invested in a business to generate income"
+            },
+            {
+                question: "What does 'amortization' mean?",
+                options: ["The process of spreading loan payments over a period of time", "The increase in value of an asset over time", "The issuance of new shares by a company", "The process of merging two companies"],
+                answer: "The process of spreading loan payments over a period of time"
+            },
+            {
+                question: "What is a 'hedge fund'?",
+                options: ["A government fund for social programs", "A mutual fund for small investors", "A private investment fund that employs various strategies to earn active returns for its investors", "A retirement savings fund"],
+                answer: "A private investment fund that employs various strategies to earn active returns for its investors"
+            }
+        ];
+
+
+
+
+        function createQuestionElement(question, index) {
+            const questionDiv = document.createElement("div");
+            questionDiv.className = "question";
+            questionDiv.innerHTML = `
+                <p>${index + 1}. ${question.question}</p>
+                ${question.options.map((option, i) => `
+                    <label>
+                        <input type="radio" name="question${index}" value="${option}" required>
+                        ${option}
+                    </label>
+                `).join('')}
+            `;
+            return questionDiv;
+        }
+
+        startQuizButton.addEventListener("click", function(event) {
+            event.preventDefault();
+            if (userInfoForm.checkValidity()) {
+                userInfoForm.style.display = "none";
+                questionsPage.style.display = "block";
+
+                // Shuffle the questions array
+                shuffle(questions);
+
+                questions.forEach((question, index) => {
+                    // Shuffle the options for each question
+                    shuffle(question.options);
+                    quizForm.appendChild(createQuestionElement(question, index));
+                });
+
+                startTimer(300, timerElement); // 300 seconds = 5 minutes
+            } else {
+                userInfoForm.reportValidity();
+            }
+        });
+
+
+        quizForm.addEventListener("submit", function(event) {
+            event.preventDefault();
+            let score = 0;
+            const formData = new FormData(quizForm);
+            questions.forEach((question, index) => {
+                const userAnswer = formData.get(`question${index}`);
+                if (userAnswer === question.answer) {
+                    score++;
+                }
+            });
+            displayResult(score);
+        });
+
+        function startTimer(duration, display) {
+            let timer = duration, minutes, seconds;
+            const interval = setInterval(function() {
+                minutes = parseInt(timer / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                display.textContent = minutes + ":" + seconds;
+
+                if (--timer < 0) {
+                    clearInterval(interval);
+                    displayResult(0);
+                }
+            }, 1000);
+        }
+
+        function displayResult(score) {
+            questionsPage.style.display = "none";
+            result.style.display = "block";
+
+            const percentage = (score / questions.length) * 100;
+            if (percentage >= 50) {
+                circularProgress.style.display = "block";
+                failContent.style.display = "none";
+                percentageSpan.textContent = `${percentage.toFixed(0)}%`;
+                scoreDetailsSpan.textContent = `${score} out of ${questions.length}`;
+                circularProgress.style.background = `conic-gradient(green ${percentage}%, #ddd ${percentage}%)`;
+            } else {
+                circularProgress.style.display = "none";
+                failContent.style.display = "block";
+            }
+        }
+    });
+</script>
+</body>
+</html>
