@@ -6,6 +6,74 @@
     <title>BFSI Quiz</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
+
+        /* Card Layout */
+        /* Card Layout */
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            gap: 15px; /* Adjusted gap */
+            padding: 10px;
+            margin: 0;
+        }
+
+        .card {
+            padding: 15px; /* Increased padding */
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: left; /* Left-aligned text */
+            width: calc(24% - 15px); /* Adjusted width for 4 cards per row */
+            box-sizing: border-box; /* Include padding in width */
+            cursor: pointer;
+            font-size: 14px; /* Adjusted font size */
+            color: #333; /* Text color */
+        }
+
+        .card h3 {
+            font-size: 16px; /* Adjusted font size */
+            margin-bottom: 8px; /* Increased margin */
+            color: #28a745; /* Green color for titles */
+        }
+
+        .card p {
+            font-size: 12px; /* Adjusted font size */
+            color: #555; /* Text color */
+            margin: 0;
+            line-height: 1.5; /* Improved readability */
+        }
+
+        .card:focus,
+        .card:hover {
+            outline: none;
+            border: 2px solid #28a745;
+            box-shadow: 0 0 10px rgba(40, 167, 69, 0.5);
+        }
+
+        .card:active {
+            transform: scale(0.98);
+        }
+
+        @media (max-width: 1200px) {
+            .card {
+                width: calc(33.33% - 15px); /* Adjusted width for 3 cards per row */
+            }
+        }
+
+        @media (max-width: 900px) {
+            .card {
+                width: calc(50% - 15px); /* Adjusted width for 2 cards per row */
+            }
+        }
+
+        @media (max-width: 600px) {
+            .card {
+                width: calc(100% - 15px); /* Full width for smaller screens */
+            }
+        }
+
         body {
             font-family: 'Roboto', sans-serif;
             background: linear-gradient(to right, #1c92d2, #f2fcfe);
@@ -14,21 +82,23 @@
             color: #333;
             overflow: auto;
         }
+
         .container {
-            max-width: 1000px;
+            max-width: 900px; /* Adjusted max width */
             width: 100%;
-            margin: 30px auto;
-            padding: 20px;
+            margin: 10px auto; /* Adjusted margin */
+            padding: 10px; /* Adjusted padding */
             background: #fff;
-            border-radius: 8px;
+            border-radius: 10px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
             animation: fadeIn 1s ease-in-out;
         }
+
         h2 {
-            color: #007BFF;
+            color: #28a745;
             text-align: center;
-            margin-bottom: 20px;
-            font-size: 28px;
+            margin-bottom: 10px; /* Increased margin */
+            font-size: 24px; /* Adjusted font size */
             animation: slideIn 0.5s ease-in-out;
         }
         label {
@@ -98,7 +168,83 @@
             display: none;
             text-align: center;
             animation: fadeInUp 1s ease-in-out;
+            padding-bottom: 50px; /* Ensure space at the bottom for circular progress */
         }
+
+        .result .circular-progress {
+            position: relative;
+            width: 120px; /* Adjusted size */
+            height: 120px; /* Adjusted size */
+            border-radius: 50%;
+            margin: 0 auto 15px; /* Adjusted margin */
+            background: conic-gradient(#28a745 calc(75 * 1%), #ddd calc(75 * 1%));
+        }
+
+        .result .circular-progress .percentage {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .result .circular-progress .percentage span {
+            display: block;
+        }
+
+        .result .circular-progress .percentage #percentage {
+            font-size: 20px; /* Adjusted font size */
+            font-weight: bold;
+        }
+
+        .result .circular-progress .percentage #scoreDetails {
+            font-size: 12px; /* Adjusted font size */
+            color: #555; /* Text color */
+        }
+
+        .result .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            gap: 15px; /* Adjusted gap */
+            padding: 10px;
+            margin: 0;
+        }
+
+        .result .card {
+            padding: 15px; /* Increased padding */
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: left; /* Left-aligned text */
+            width: calc(24% - 15px); /* Adjusted width for 4 cards per row */
+            box-sizing: border-box; /* Include padding in width */
+            cursor: pointer;
+            font-size: 14px; /* Adjusted font size */
+            color: #333; /* Text color */
+        }
+
+        .result .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .result .card.image-card {
+            width: 100%; /* Adjust width to fit container */
+            text-align: center;
+            transition: transform 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .result .card.image-card img {
+            max-width: 100%;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
         @keyframes fadeIn {
             0% { opacity: 0; transform: translateY(20px); }
             100% { opacity: 1; transform: translateY(0); }
@@ -134,12 +280,12 @@
         }
         .fail {
             color: red;
-            font-size: 60px;
+            font-size: 30px;
             font-weight: bold;
             margin-top: 20px;
         }
         .red-cross {
-            font-size: 80px;
+            font-size: 50px;
             color: red;
         }
         .circular-progress {
@@ -178,8 +324,8 @@
             margin-bottom: 20px;
         }
         .banner {
-            margin-top: 20px;
             text-align: center;
+            padding: 0 15px; /* Adjusted padding */
         }
         .banner img {
             max-width: 100%;
@@ -250,24 +396,24 @@
                 <div class="red-cross">&#10060;</div>
             </div>
             <div class="card-container">
-                <div class="card">
+                <div class="card" tabindex="0">
                     <h3>Enhance Your Financial Literacy</h3>
-                    <p>Understanding financial concepts is crucial in the BFSI sector. Focus on improving your knowledge in areas like personal finance, investment strategies, and financial planning. Consider taking online courses or reading books on these topics to boost your confidence and competence.</p>
+                    <p>Understanding financial concepts is crucial in the BFSI sector. Focus on improving your knowledge in areas like personal finance, investment strategies, and financial planning.</p>
                 </div>
-                <div class="card">
+                <div class="card" tabindex="0">
                     <h3>Gain Practical Experience</h3>
-                    <p>Seek internships, part-time jobs, or volunteer opportunities in banks, financial institutions, or insurance companies. Practical experience will give you insights into the industry, help you develop relevant skills, and enhance your resume for future career prospects.</p>
+                    <p>Seek internships, part-time jobs, or volunteer opportunities in banks, financial institutions, or insurance companies. Practical experience will give you insights into the industry.</p>
                 </div>
-                <div class="card">
+                <div class="card" tabindex="0">
                     <h3>Network with Industry Professionals</h3>
-                    <p>Building a strong professional network is essential in the BFSI sector. Attend industry events, join online forums, and connect with professionals on platforms like LinkedIn. Networking can open doors to job opportunities, mentorship, and valuable industry knowledge.</p>
+                    <p>Building a strong professional network is essential in the BFSI sector. Attend industry events, join online forums, and connect with professionals on platforms like LinkedIn.</p>
                 </div>
-                <div class="card">
+                <div class="card" tabindex="0">
                     <h3>Stay Updated on Industry Trends</h3>
-                    <p>The BFSI sector is dynamic and constantly evolving. Stay informed about the latest trends, regulations, and technological advancements in the industry. Subscribe to industry publications, follow reputable news sources, and participate in webinars or seminars to stay ahead of the curve.</p>
+                    <p>The BFSI sector is dynamic and constantly evolving. Stay informed about the latest trends, regulations, and technological advancements in the industry.</p>
                 </div>
             </div>
-            <div class="card image-card" onclick="window.open('https://www.expertrons.com/app/courses/63986684ce56f70c21b01c8c?SourceCampaign=website&SourceMedium=footer', '_blank')">
+            <div class="card image-card" onclick="window.open('https://www.expertrons.com/app/checkout?voucher=exptrn5klp-pgcp-bfsi-ep', '_blank')">
                 <img src="https://www.dropbox.com/scl/fi/amvt6qf1sao9l89qw51zl/594X180.13-Banner.png?rlkey=axxvh91kdabwh2tdnwcb6adne&st=x0zvu5xx&raw=1" alt="Enhance Skills and step in BFSI with Expertrons">
                 <h3>Enhance Skills and step in BFSI</h3>
             </div>
@@ -498,6 +644,7 @@
                 failContent.style.display = "block";
             }
         }
+
     });
 </script>
 </body>
