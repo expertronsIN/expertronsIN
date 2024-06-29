@@ -9,10 +9,23 @@
         /* General Styles */
         body {
             font-family: 'Roboto', sans-serif;
+            font-size: 16px; /* Default */
             background-color: #f0f0f0;
             color: #333;
             margin: 0;
             padding: 0;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                font-size: 14px; /* Slightly smaller */
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                font-size: 12px; /* Smaller */
+            }
         }
 
         /* Container */
@@ -80,13 +93,63 @@
             transform: translateY(1px);
         }
 
-        /* Media Query for Responsiveness */
-        @media (max-width: 600px) {
-            .container {
-                margin: 20px;
-                padding: 15px;
+        /* Card Styles */
+        .card-container {
+            display: flex;
+            flex-wrap: wrap; /* Allows wrapping of cards */
+            gap: 20px;
+            justify-content: center;
+        }
+        .card {
+            flex: 1 1 calc(25% - 20px); /* Four cards in a row */
+            padding: 15px;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: center;
+            font-size: 14px;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        @media (max-width: 1024px) {
+            .card {
+                flex: 1 1 calc(33.33% - 20px); /* Three cards in a row */
             }
         }
+
+        @media (max-width: 768px) {
+            .card {
+                flex: 1 1 calc(50% - 20px); /* Two cards in a row */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .card {
+                flex: 1 1 calc(100% - 20px); /* One card in a row */
+            }
+        }
+
+        .card h3 {
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: #28a745;
+        }
+
+        .card p {
+            font-size: 12px;
+            color: #555;
+            flex-grow: 1;
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
 
         .question {
             padding: 20px;
@@ -122,15 +185,11 @@
             cursor: pointer;
         }
 
-        .question input[required] {
-            box-shadow: none;
-        }
-
         .result {
             display: none;
             text-align: center;
             animation: fadeInUp 1s ease-in-out;
-            padding-bottom: 50px;
+            padding-bottom: 20px;
         }
 
         .result .circular-progress {
@@ -167,47 +226,11 @@
         .result .card-container {
             display: flex;
             flex-wrap: wrap;
-            justify-content: space-around;
-            gap: 15px;
+            gap: 20px;
+            justify-content: center;
             padding: 10px;
             margin: 0 auto;
             max-width: 1200px;
-        }
-
-        .result .card {
-            padding: 15px;
-            background: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
-            text-align: left;
-            width: calc(25% - 20px);
-            box-sizing: border-box;
-            font-size: 14px;
-            color: #333;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .result .card h3 {
-            font-size: 14px;
-            margin-bottom: 10px;
-            color: #28a745;
-            text-align: center;
-        }
-
-        .result .card p {
-            font-size: 12px;
-            color: #555;
-            text-align: center;
-            flex-grow: 1;
-            margin: 0;
-            line-height: 1.5;
-        }
-
-        .result .card:hover {
-            transform: translateY(-5px);
         }
 
         .result .card.image-card {
@@ -285,9 +308,9 @@
 
         .scrollable {
             overflow-y: auto;
-            max-height: 70vh;
+            max-height: 400px;
+            padding-right: 20px;
         }
-
     </style>
 </head>
 <body>
@@ -339,10 +362,6 @@
                 <div class="card" tabindex="0">
                     <h3>Network with Industry Professionals</h3>
                     <p>Building a strong professional network is essential in the BFSI sector. Attend industry events, join online forums, and connect with professionals on platforms like LinkedIn.</p>
-                </div>
-                <div class="card" tabindex="0">
-                    <h3>Stay Updated on Industry Trends</h3>
-                    <p>The BFSI sector is dynamic and constantly evolving. Stay informed about the latest trends, regulations, and technological advancements in the industry.</p>
                 </div>
             </div>
             <div class="card image-card" onclick="window.open('https://www.expertrons.com/app/checkout?voucher=exptrn5klp-pgcp-bfsi-ep', '_blank')">
@@ -636,7 +655,8 @@
                 question: "Which financial instrument gives the holder the right, but not the obligation, to buy or sell an asset at a predetermined price?",
                 options: ["Future contract", "Option", "Forward contract", "Swap"],
                 answer: "Option"
-            }
+            },
+
         ];
 
 
