@@ -731,6 +731,7 @@
 
         const urlParams = new URLSearchParams(window.location.search);
         const userId = urlParams.get('userId') || 'test';
+        console.log('userId:', userId);
 
         function submitScoreToAPI(score, percentage, resultText, userAnswers) {
             const payload = {
