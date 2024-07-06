@@ -729,19 +729,24 @@
             }
         }
 
+        const urlParams = new URLSearchParams(window.location.search);
+        const userId = urlParams.get('userId') || 'test';
+
         function submitScoreToAPI(score, percentage, resultText, userAnswers) {
+            const payload = {
+                userId: userId,
+                questions: userAnswers,
+                percentage: percentage,
+                result: resultText
+            };
+
             fetch('https://v2.expertrons.com/api/external/user-assessment/add-quiz-data', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer NS0vX1EiTcLmdAbckBawdHQHbGopf4p3R6hKVbbJ',
                 },
-                body: JSON.stringify({
-                    userId: "668817eb505f9043a0e81bd1", // Replace with the actual user ID
-                    questions: userAnswers,
-                    percentage: percentage,
-                    result: resultText
-                }),
+                body: JSON.stringify(payload),
             })
                 .then(response => response.json())
                 .then(data => {
@@ -753,6 +758,7 @@
         }
     });
 </script>
+
 
 </body>
 </html>
