@@ -730,7 +730,7 @@
         }
 
         const urlParams = new URLSearchParams(window.location.search);
-        const userId = urlParams.get('userId') || 'test';
+        const userId = urlParams.get('id'); || 'test';
         console.log('userId:', userId);
 
         function submitScoreToAPI(score, percentage, resultText, userAnswers) {
