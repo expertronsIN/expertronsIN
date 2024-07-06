@@ -727,6 +727,18 @@
                 circularProgress.style.display = "none";
                 failContent.style.display = "block";
             }
+
+            // New API call on results page display
+            fetch(`https://prodn.expertrons.com/api/admin/marketingUnath/updateDataInLSQ?Phone=7888812037&mx_Result=${resultText}&mx_Custom_3=BFSI%20Assessment`, {
+                method: 'POST',
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Results API Success:', data);
+                })
+                .catch((error) => {
+                    console.error('Results API Error:', error);
+                });
         }
 
         function getResultText(percentage) {
@@ -787,6 +799,7 @@
             });
     });
 </script>
+
 
 
 
