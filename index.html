@@ -358,7 +358,6 @@
         </div>
     </div>
 </div>
-
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const questionsPage = document.getElementById("questionsPage");
@@ -638,14 +637,14 @@
             const questionDiv = document.createElement("div");
             questionDiv.className = "question";
             questionDiv.innerHTML = `
-                <p>${index + 1}. ${question.question}</p>
-                ${question.options.map((option, i) => `
-                    <label>
-                        <input type="radio" name="question${index}" value="${option}" required>
-                        ${option}
-                    </label>
-                `).join('')}
-            `;
+            <p>${index + 1}. ${question.question}</p>
+            ${question.options.map((option, i) => `
+                <label>
+                    <input type="radio" name="question${index}" value="${option}" required>
+                    ${option}
+                </label>
+            `).join('')}
+        `;
             return questionDiv;
         }
 
@@ -730,10 +729,14 @@
         }
 
         const urlParams = new URLSearchParams(window.location.search);
-        const userId = urlParams.get('id'); || 'test';
-        console.log('userId:', userId);
+        const userId = urlParams.get('id'); // Updated to fetch 'id' from URL
 
         function submitScoreToAPI(score, percentage, resultText, userAnswers) {
+            if (!userId || userId === 'test') {
+                console.log('Skipping API call due to missing or invalid userId');
+                return;
+            }
+
             const payload = {
                 userId: userId,
                 questions: userAnswers,
@@ -759,7 +762,6 @@
         }
     });
 </script>
-
 
 </body>
 </html>
