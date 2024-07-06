@@ -359,7 +359,6 @@
     </div>
 </div>
 
-
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const questionsPage = document.getElementById("questionsPage");
@@ -372,16 +371,13 @@
         const scoreDetailsSpan = document.getElementById("scoreDetails");
         const timerElement = document.getElementById("timer");
 
-        // Fisher-Yates (aka Knuth) Shuffle
         function shuffle(array) {
             let currentIndex = array.length, randomIndex;
-
             while (currentIndex != 0) {
                 randomIndex = Math.floor(Math.random() * currentIndex);
                 currentIndex--;
                 [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
             }
-
             return array;
         }
 
@@ -642,18 +638,17 @@
             const questionDiv = document.createElement("div");
             questionDiv.className = "question";
             questionDiv.innerHTML = `
-            <p>${index + 1}. ${question.question}</p>
-            ${question.options.map((option, i) => `
-                <label>
-                    <input type="radio" name="question${index}" value="${option}" required>
-                    ${option}
-                </label>
-            `).join('')}
-        `;
+                <p>${index + 1}. ${question.question}</p>
+                ${question.options.map((option, i) => `
+                    <label>
+                        <input type="radio" name="question${index}" value="${option}" required>
+                        ${option}
+                    </label>
+                `).join('')}
+            `;
             return questionDiv;
         }
 
-        // Start the quiz directly
         questionsPage.style.display = "block";
         shuffle(questions);
         const selectedQuestions = questions.slice(0, 20);
@@ -663,19 +658,29 @@
             quizForm.appendChild(createQuestionElement(question, index));
         });
 
-        startTimer(300, timerElement); // 300 seconds = 5 minutes
+        startTimer(300, timerElement);
 
         quizForm.addEventListener("submit", function(event) {
             event.preventDefault();
             let score = 0;
             const formData = new FormData(quizForm);
-            questions.forEach((question, index) => {
+            const userAnswers = [];
+            selectedQuestions.forEach((question, index) => {
                 const userAnswer = formData.get(`question${index}`);
                 if (userAnswer === question.answer) {
                     score++;
                 }
+                userAnswers.push({
+                    question: question.question,
+                    options: question.options,
+                    answer: question.answer,
+                    user_answer: userAnswer
+                });
             });
-            displayResult(score);
+            const percentage = (score / selectedQuestions.length) * 100;
+            const resultText = getResultText(percentage);
+            displayResult(score, percentage, resultText);
+            submitScoreToAPI(score, percentage, resultText, userAnswers);
         });
 
         function startTimer(duration, display) {
@@ -691,29 +696,63 @@
 
                 if (--timer < 0) {
                     clearInterval(interval);
-                    displayResult(0);
+                    displayResult(0, 0, "FAIL");
                 }
             }, 1000);
         }
 
-        function displayResult(score) {
+        function displayResult(score, percentage, resultText) {
             questionsPage.style.display = "none";
             result.style.display = "block";
 
-            const percentage = (score / questions.length) * 100;
             if (percentage >= 50) {
                 circularProgress.style.display = "block";
                 failContent.style.display = "none";
                 percentageSpan.textContent = `${percentage.toFixed(0)}%`;
-                scoreDetailsSpan.textContent = `${score} out of ${questions.length}`;
+                scoreDetailsSpan.textContent = `${score} out of ${selectedQuestions.length}`;
                 circularProgress.style.background = `conic-gradient(green ${percentage}%, #ddd ${percentage}%)`;
             } else {
                 circularProgress.style.display = "none";
                 failContent.style.display = "block";
             }
         }
-    });
 
+        function getResultText(percentage) {
+            if (percentage >= 95) {
+                return "EXCELLENT";
+            } else if (percentage >= 90) {
+                return "VERY GOOD";
+            } else if (percentage >= 70) {
+                return "GOOD";
+            } else {
+                return "FAIL";
+            }
+        }
+
+        function submitScoreToAPI(score, percentage, resultText, userAnswers) {
+            fetch('https://v2.expertrons.com/api/external/user-assessment/add-quiz-data', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer NS0vX1EiTcLmdAbckBawdHQHbGopf4p3R6hKVbbJ',
+                },
+                body: JSON.stringify({
+                    userId: "668817eb505f9043a0e81bd1", // Replace with the actual user ID
+                    questions: userAnswers,
+                    percentage: percentage,
+                    result: resultText
+                }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Success:', data);
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+        }
+    });
 </script>
+
 </body>
 </html>
