@@ -684,7 +684,7 @@
 
             // New API call added here
             fetch('https://prodn.expertrons.com/api/admin/marketingUnath/addLSQActivity?mobile=7888812037&eventId=254&mx_Custom_2=BFSI%20Assessment', {
-                method: 'POST',
+                method: 'GET',
             })
                 .then(response => response.json())
                 .then(data => {
@@ -730,7 +730,7 @@
 
             // New API call on results page display
             fetch(`https://prodn.expertrons.com/api/admin/marketingUnath/updateDataInLSQ?Phone=7888812037&mx_Result=${resultText}&mx_Custom_3=BFSI%20Assessment`, {
-                method: 'POST',
+                method: 'GET',
             })
                 .then(response => response.json())
                 .then(data => {
@@ -788,7 +788,7 @@
 
         // New API call on page load
         fetch('https://prodn.expertrons.com/api/admin/marketingUnath/addLSQActivity?mobile=7888812037&eventId=252&mx_Custom_1=BFSI%20Assessment', {
-            method: 'POST',
+            method: 'GET',
         })
             .then(response => response.json())
             .then(data => {
