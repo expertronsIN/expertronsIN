@@ -353,336 +353,336 @@
 </head>
 
 <body>
-    <div class="container">
-        <div id="questionsPage">
-            <h2>BFSI Quiz</h2>
-            <div class="timer" id="timer">05:00</div> <!-- Timer display -->
-            <form id="quizForm" class="scrollable">
-                <!-- Questions will be dynamically added here -->
-            </form>
-            <button id="submitQuizButton" form="quizForm" type="submit">Submit Quiz</button>
-        </div>
+<div class="container">
+    <div id="questionsPage">
+        <h2>BFSI Quiz</h2>
+        <div class="timer" id="timer">05:00</div> <!-- Timer display -->
+        <form id="quizForm" class="scrollable">
+            <!-- Questions will be dynamically added here -->
+        </form>
+        <button id="submitQuizButton" form="quizForm" type="submit">Submit Quiz</button>
+    </div>
 
-        <div class="result" id="result">
-            <h2>Quiz Result:</h2>
-            <div id="resultContent">
-                <div class="circular-progress" id="circularProgress" style="display: none;">
-                    <div class="percentage">
-                        <span id="percentage">0%</span>
-                        <span id="scoreDetails">0 out of 20</span>
-                    </div>
+    <div class="result" id="result">
+        <h2>Quiz Result:</h2>
+        <div id="resultContent">
+            <div class="circular-progress" id="circularProgress" style="display: none;">
+                <div class="percentage">
+                    <span id="percentage">0%</span>
+                    <span id="scoreDetails">0 out of 20</span>
                 </div>
-                <div id="failContent">
-                    <div class="fail">Fail</div>
-                    <div class="red-cross">&#10060;</div>
+            </div>
+            <div id="failContent">
+                <div class="fail">Fail</div>
+                <div class="red-cross">&#10060;</div>
+            </div>
+            <div class="card-container">
+                <div class="card" tabindex="0">
+                    <h3>Enhance Your Financial Literacy</h3>
+                    <p>Understanding financial concepts is crucial in the BFSI sector. Focus on improving your
+                        knowledge in areas like personal finance, investment strategies, and financial planning.</p>
                 </div>
-                <div class="card-container">
-                    <div class="card" tabindex="0">
-                        <h3>Enhance Your Financial Literacy</h3>
-                        <p>Understanding financial concepts is crucial in the BFSI sector. Focus on improving your
-                            knowledge in areas like personal finance, investment strategies, and financial planning.</p>
-                    </div>
-                    <div class="card" tabindex="0">
-                        <h3>Gain Practical Experience</h3>
-                        <p>Seek internships, part-time jobs, or volunteer opportunities in banks, financial
-                            institutions, or insurance companies. Practical experience will give you insights into the
-                            industry.</p>
-                    </div>
-                    <div class="card" tabindex="0">
-                        <h3>Network with Industry Professionals</h3>
-                        <p>Building a strong professional network is essential in the BFSI sector. Attend industry
-                            events, join online forums, and connect with professionals on platforms like LinkedIn.</p>
-                    </div>
+                <div class="card" tabindex="0">
+                    <h3>Gain Practical Experience</h3>
+                    <p>Seek internships, part-time jobs, or volunteer opportunities in banks, financial
+                        institutions, or insurance companies. Practical experience will give you insights into the
+                        industry.</p>
                 </div>
-                <div class="card image-card"
-                    onclick="window.open('https://expertrons.com/app/checkout?voucher=exptrn5klp-pgcp-bfsi-ep', '_blank')">
-                    <img src="https://www.dropbox.com/scl/fi/amvt6qf1sao9l89qw51zl/594X180.13-Banner.png?rlkey=axxvh91kdabwh2tdnwcb6adne&st=x0zvu5xx&raw=1"
-                        alt="Enhance Skills and step in BFSI with Expertrons">
-                    <h3>Enhance Skills and step in BFSI</h3>
+                <div class="card" tabindex="0">
+                    <h3>Network with Industry Professionals</h3>
+                    <p>Building a strong professional network is essential in the BFSI sector. Attend industry
+                        events, join online forums, and connect with professionals on platforms like LinkedIn.</p>
                 </div>
+            </div>
+            <div class="card image-card"
+                 onclick="window.open('https://expertrons.com/app/checkout?voucher=exptrn5klp-pgcp-bfsi-ep', '_blank')">
+                <img src="https://www.dropbox.com/scl/fi/amvt6qf1sao9l89qw51zl/594X180.13-Banner.png?rlkey=axxvh91kdabwh2tdnwcb6adne&st=x0zvu5xx&raw=1"
+                     alt="Enhance Skills and step in BFSI with Expertrons">
+                <h3>Enhance Skills and step in BFSI</h3>
             </div>
         </div>
     </div>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            // Existing variables and functions
-            const questionsPage = document.getElementById("questionsPage");
-            const quizForm = document.getElementById("quizForm");
-            const result = document.getElementById("result");
-            const resultContent = document.getElementById("resultContent");
-            const failContent = document.getElementById("failContent");
-            const circularProgress = document.getElementById("circularProgress");
-            const percentageSpan = document.getElementById("percentage");
-            const scoreDetailsSpan = document.getElementById("scoreDetails");
-            const timerElement = document.getElementById("timer");
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Existing variables and functions
+        const questionsPage = document.getElementById("questionsPage");
+        const quizForm = document.getElementById("quizForm");
+        const result = document.getElementById("result");
+        const resultContent = document.getElementById("resultContent");
+        const failContent = document.getElementById("failContent");
+        const circularProgress = document.getElementById("circularProgress");
+        const percentageSpan = document.getElementById("percentage");
+        const scoreDetailsSpan = document.getElementById("scoreDetails");
+        const timerElement = document.getElementById("timer");
 
-            function shuffle(array) {
-                let currentIndex = array.length, randomIndex;
-                while (currentIndex != 0) {
-                    randomIndex = Math.floor(Math.random() * currentIndex);
-                    currentIndex--;
-                    [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
-                }
-                return array;
+        function shuffle(array) {
+            let currentIndex = array.length, randomIndex;
+            while (currentIndex != 0) {
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex--;
+                [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
             }
+            return array;
+        }
 
-            const questions = [
-                {
-                    question: "Which of the following acts governs the regulation of the securities market in India?",
-                    options: ["Companies Act, 2013", "Banking Regulation Act, 1949", "SEBI Act, 1992", "Foreign Exchange Management Act, 1999"],
-                    answer: "SEBI Act, 1992"
-                },
-                {
-                    question: "What is the primary purpose of the Basel III regulations?",
-                    options: ["To improve the risk management of banks", "To provide better consumer banking services", "To enhance competition among banks", "To increase the number of banks globally"],
-                    answer: "To improve the risk management of banks"
-                },
-                {
-                    question: "What type of insurance provides coverage for damage to property from specified hazards?",
-                    options: ["Liability insurance", "Life insurance", "Property insurance", "Health insurance"],
-                    answer: "Property insurance"
-                },
-                {
-                    question: "Which investment product is designed to provide regular income to the investor?",
-                    options: ["Equity shares", "Real estate", "Bonds", "Commodities"],
-                    answer: "Bonds"
-                },
-                {
-                    question: "Which of the following is a primary tool used for managing credit risk in banks?",
-                    options: ["Diversification", "Interest rate swaps", "Credit scoring models", "Exchange rate hedging"],
-                    answer: "Credit scoring models"
-                },
-                {
-                    question: "Which organization is responsible for regulating the insurance industry in India?",
-                    options: ["SEBI", "RBI", "IRDAI", "Ministry of Finance"],
-                    answer: "IRDAI"
-                },
-                {
-                    question: "What is the primary function of the money market?",
-                    options: ["To trade in long-term financial instruments", "To provide liquidity for short-term financial needs", "To facilitate foreign exchange transactions", "To offer investment opportunities for mutual funds"],
-                    answer: "To provide liquidity for short-term financial needs"
-                },
-                {
-                    question: "Which type of mutual fund is characterized by having a fixed number of shares and typically trades on a stock exchange?",
-                    options: ["Open-ended fund", "Closed-ended fund", "Money market fund", "Balanced fund"],
-                    answer: "Closed-ended fund"
-                },
-                {
-                    question: "What is the primary difference between a demand deposit and a term deposit?",
-                    options: ["Interest rates", "Liquidity", "Deposit insurance", "Minimum balance requirements"],
-                    answer: "Liquidity"
-                },
-                {
-                    question: "Which financial ratio measures a company's ability to meet its short-term obligations with its most liquid assets?",
-                    options: ["Debt-to-equity ratio", "Current ratio", "Quick ratio", "Return on equity"],
-                    answer: "Quick ratio"
-                },
-                {
-                    question: "Which type of life insurance provides coverage for a specific term and does not build cash value?",
-                    options: ["Whole life insurance", "Term life insurance", "Universal life insurance", "Variable life insurance"],
-                    answer: "Term life insurance"
-                },
-                {
-                    question: "Which of the following is considered a market risk?",
-                    options: ["Credit risk", "Operational risk", "Interest rate risk", "Liquidity risk"],
-                    answer: "Interest rate risk"
-                },
-                {
-                    question: "What does the Capital Adequacy Ratio (CAR) measure in a bank?",
-                    options: ["Liquidity position", "Operational efficiency", "Creditworthiness", "Capital stability"],
-                    answer: "Capital stability"
-                },
-                {
-                    question: "What is the main objective of corporate governance in financial institutions?",
-                    options: ["Maximizing profits", "Reducing operational costs", "Ensuring transparency and accountability", "Expanding market share"],
-                    answer: "Ensuring transparency and accountability"
-                },
-                {
-                    question: "Which of the following is a non-performing asset (NPA)?",
-                    options: ["An asset with regular interest payments", "An asset overdue for 30 days", "An asset overdue for 90 days", "An asset generating lower than expected returns"],
-                    answer: "An asset overdue for 90 days"
-                },
-                {
-                    question: "Which strategy involves holding a diversified portfolio to reduce unsystematic risk?",
-                    options: ["Market timing", "Stock picking", "Hedging", "Diversification"],
-                    answer: "Diversification"
-                },
-                {
-                    question: "What is the primary purpose of an emergency fund in personal financial planning?",
-                    options: ["To invest in high-risk opportunities", "To save for long-term goals", "To cover unexpected expenses", "To reduce tax liabilities"],
-                    answer: "To cover unexpected expenses"
-                },
-                {
-                    question: "What is the key objective of Anti-Money Laundering (AML) regulations?",
-                    options: ["To increase banking efficiency", "To enhance customer satisfaction", "To prevent illicit financial activities", "To improve credit risk assessment"],
-                    answer: "To prevent illicit financial activities"
-                },
-                {
-                    question: "Which technology is primarily used for secure and seamless online financial transactions?",
-                    options: ["Blockchain", "Cloud computing", "Artificial intelligence", "Big data analytics"],
-                    answer: "Blockchain"
-                },
-                {
-                    question: "What is the main purpose of using financial derivatives?",
-                    options: ["To speculate on future price movements", "To hedge against potential losses", "To increase investment returns", "To diversify an investment portfolio"],
-                    answer: "To hedge against potential losses"
-                },
-                {
-                    question: "What does the Sharpe Ratio measure in portfolio management?",
-                    options: ["Portfolio diversification", "Risk-adjusted return", "Absolute return", "Market volatility"],
-                    answer: "Risk-adjusted return"
-                },
-                {
-                    question: "What is the primary goal of microfinance?",
-                    options: ["To provide large loans to businesses", "To promote financial inclusion for low-income individuals", "To offer investment opportunities for wealthy clients", "To maximize profits for financial institutions"],
-                    answer: "To promote financial inclusion for low-income individuals"
-                },
-                {
-                    question: "Which organization typically assigns credit ratings to corporate bonds?",
-                    options: ["SEBI", "RBI", "CRISIL", "NITI Aayog"],
-                    answer: "CRISIL"
-                },
-                {
-                    question: "What is the primary function of a correspondent bank?",
-                    options: ["To provide loans to other banks", "To facilitate international financial transactions", "To offer retail banking services", "To invest in government securities"],
-                    answer: "To facilitate international financial transactions"
-                },
-                {
-                    question: "Which of the following is an example of a leading economic indicator?",
-                    options: ["Gross Domestic Product (GDP)", "Consumer Price Index (CPI)", "Unemployment rate", "Stock market indices"],
-                    answer: "Stock market indices"
-                },
-                {
-                    question: "Which type of banking fraud involves the unauthorized use of a customer's financial information?",
-                    options: ["Phishing", "Money laundering", "Insider trading", "Ponzi scheme"],
-                    answer: "Phishing"
-                },
-                {
-                    question: "What is the primary objective of asset-liability management (ALM)?",
-                    options: ["To maximize return on assets", "To manage liquidity and financial risks", "To reduce operational costs", "To increase market share"],
-                    answer: "To manage liquidity and financial risks"
-                },
-                {
-                    question: "What does KYC stand for in banking?",
-                    options: ["Know Your Corporation", "Know Your Customer", "Know Your Credit", "Know Your Capital"],
-                    answer: "Know Your Customer"
-                },
-                {
-                    question: "Which of the following is a characteristic of a callable bond?",
-                    options: ["It cannot be redeemed before maturity", "It offers a fixed interest rate", "It can be redeemed by the issuer before maturity", "It provides dividends instead of interest"],
-                    answer: "It can be redeemed by the issuer before maturity"
-                },
-                {
-                    question: "What does the term 'currency peg' refer to in the context of foreign exchange?",
-                    options: ["A flexible exchange rate system", "A fixed exchange rate system", "A floating interest rate mechanism", "A monetary policy tool"],
-                    answer: "A fixed exchange rate system"
-                },
-                {
-                    question: "What is the main purpose of underwriting in insurance?",
-                    options: ["To assess and mitigate the risk of insurance applicants", "To sell insurance policies to customers", "To provide customer service for policyholders", "To manage claims for insurance policies"],
-                    answer: "To assess and mitigate the risk of insurance applicants"
-                },
-                {
-                    question: "Which of the following is a primary source of financing for corporations?",
-                    options: ["Trade credit", "Retained earnings", "Corporate social responsibility funds", "Capital gains"],
-                    answer: "Retained earnings"
-                },
-                {
-                    question: "What is the main characteristic of a mortgage loan?",
-                    options: ["It is an unsecured loan", "It is used for purchasing real estate", "It has a fixed repayment schedule", "It does not require collateral"],
-                    answer: "It is used for purchasing real estate"
-                },
-                {
-                    question: "Which financial statement provides information about a company’s revenues and expenses over a period?",
-                    options: ["Balance sheet", "Cash flow statement", "Income statement", "Statement of changes in equity"],
-                    answer: "Income statement"
-                },
-                {
-                    question: "What is the primary purpose of a credit default swap (CDS)?",
-                    options: ["To insure against interest rate fluctuations", "To hedge against the risk of default by a borrower", "To facilitate currency exchange transactions", "To provide capital appreciation"],
-                    answer: "To hedge against the risk of default by a borrower"
-                },
-                {
-                    question: "Which of the following methods is used to value a stock by examining the company's financial statements?",
-                    options: ["Technical analysis", "Fundamental analysis", "Behavioral analysis", "Quantitative analysis"],
-                    answer: "Fundamental analysis"
-                },
-                {
-                    question: "Which of the following is an example of operational risk in banking?",
-                    options: ["Changes in interest rates", "Poor strategic decisions", "IT system failures", "Fluctuations in foreign exchange rates"],
-                    answer: "IT system failures"
-                },
-                {
-                    question: "What is the primary purpose of the Banking Ombudsman Scheme in India?",
-                    options: ["To provide low-interest loans to the public", "To address grievances of bank customers", "To regulate banking operations", "To set interest rates for savings accounts"],
-                    answer: "To address grievances of bank customers"
-                },
-                {
-                    question: "Which principle of insurance involves the insurer compensating the insured for the loss incurred?",
-                    options: ["Indemnity", "Subrogation", "Contribution", "Proximate cause"],
-                    answer: "Indemnity"
-                },
-                {
-                    question: "What is the purpose of asset allocation in investment strategy?",
-                    options: ["To maximize returns by investing in a single asset class", "To diversify investments across various asset classes", "To minimize transaction costs", "To align investments with tax regulations"],
-                    answer: "To diversify investments across various asset classes"
-                },
-                {
-                    question: "Under which Act does the Reserve Bank of India have the authority to regulate the issue of bank notes?",
-                    options: ["Banking Regulation Act, 1949", "Reserve Bank of India Act, 1934", "Companies Act, 2013", "Negotiable Instruments Act, 1881"],
-                    answer: "Reserve Bank of India Act, 1934"
-                },
-                {
-                    question: "What is the primary characteristic of a mutual fund's NAV (Net Asset Value)?",
-                    options: ["It represents the fund's total assets", "It indicates the fund's performance", "It is calculated daily and reflects the per-share value", "It measures the fund's liquidity"],
-                    answer: "It is calculated daily and reflects the per-share value"
-                },
-                {
-                    question: "What is the main advantage of using Automated Teller Machines (ATMs)?",
-                    options: ["They provide high-interest rates on deposits", "They offer real-time foreign exchange services", "They allow for 24/7 banking transactions", "They facilitate loan applications"],
-                    answer: "They allow for 24/7 banking transactions"
-                },
-                {
-                    question: "Which ratio is used to assess the creditworthiness of a borrower?",
-                    options: ["Price-to-earnings ratio", "Debt-to-income ratio", "Inventory turnover ratio", "Asset turnover ratio"],
-                    answer: "Debt-to-income ratio"
-                },
-                {
-                    question: "Which type of insurance policy provides coverage for multiple risks under a single contract?",
-                    options: ["Single-line policy", "Multi-line policy", "Term policy", "Endowment policy"],
-                    answer: "Multi-line policy"
-                },
-                {
-                    question: "Which technology is used to facilitate peer-to-peer lending platforms?",
-                    options: ["Distributed ledger technology", "Internet of Things (IoT)", "Cloud storage", "Artificial intelligence"],
-                    answer: "Distributed ledger technology"
-                },
-                {
-                    question: "What is the role of a clearinghouse in a stock exchange?",
-                    options: ["To execute trade orders", "To match buyers and sellers", "To facilitate the settlement of trades", "To provide market data analytics"],
-                    answer: "To facilitate the settlement of trades"
-                },
-                {
-                    question: "Which of the following is a common measure of a company's liquidity?",
-                    options: ["Return on investment", "Asset turnover", "Current ratio", "Debt-to-equity ratio"],
-                    answer: "Current ratio"
-                },
-                {
-                    question: "Which type of risk arises from changes in the general economic conditions affecting all investments?",
-                    options: ["Systematic risk", "Unsystematic risk", "Credit risk", "Operational risk"],
-                    answer: "Systematic risk"
-                },
-                {
-                    question: "Which financial instrument gives the holder the right, but not the obligation, to buy or sell an asset at a predetermined price?",
-                    options: ["Future contract", "Option", "Forward contract", "Swap"],
-                    answer: "Option"
-                },
-            ];
+        const questions = [
+            {
+                question: "Which of the following acts governs the regulation of the securities market in India?",
+                options: ["Companies Act, 2013", "Banking Regulation Act, 1949", "SEBI Act, 1992", "Foreign Exchange Management Act, 1999"],
+                answer: "SEBI Act, 1992"
+            },
+            {
+                question: "What is the primary purpose of the Basel III regulations?",
+                options: ["To improve the risk management of banks", "To provide better consumer banking services", "To enhance competition among banks", "To increase the number of banks globally"],
+                answer: "To improve the risk management of banks"
+            },
+            {
+                question: "What type of insurance provides coverage for damage to property from specified hazards?",
+                options: ["Liability insurance", "Life insurance", "Property insurance", "Health insurance"],
+                answer: "Property insurance"
+            },
+            {
+                question: "Which investment product is designed to provide regular income to the investor?",
+                options: ["Equity shares", "Real estate", "Bonds", "Commodities"],
+                answer: "Bonds"
+            },
+            {
+                question: "Which of the following is a primary tool used for managing credit risk in banks?",
+                options: ["Diversification", "Interest rate swaps", "Credit scoring models", "Exchange rate hedging"],
+                answer: "Credit scoring models"
+            },
+            {
+                question: "Which organization is responsible for regulating the insurance industry in India?",
+                options: ["SEBI", "RBI", "IRDAI", "Ministry of Finance"],
+                answer: "IRDAI"
+            },
+            {
+                question: "What is the primary function of the money market?",
+                options: ["To trade in long-term financial instruments", "To provide liquidity for short-term financial needs", "To facilitate foreign exchange transactions", "To offer investment opportunities for mutual funds"],
+                answer: "To provide liquidity for short-term financial needs"
+            },
+            {
+                question: "Which type of mutual fund is characterized by having a fixed number of shares and typically trades on a stock exchange?",
+                options: ["Open-ended fund", "Closed-ended fund", "Money market fund", "Balanced fund"],
+                answer: "Closed-ended fund"
+            },
+            {
+                question: "What is the primary difference between a demand deposit and a term deposit?",
+                options: ["Interest rates", "Liquidity", "Deposit insurance", "Minimum balance requirements"],
+                answer: "Liquidity"
+            },
+            {
+                question: "Which financial ratio measures a company's ability to meet its short-term obligations with its most liquid assets?",
+                options: ["Debt-to-equity ratio", "Current ratio", "Quick ratio", "Return on equity"],
+                answer: "Quick ratio"
+            },
+            {
+                question: "Which type of life insurance provides coverage for a specific term and does not build cash value?",
+                options: ["Whole life insurance", "Term life insurance", "Universal life insurance", "Variable life insurance"],
+                answer: "Term life insurance"
+            },
+            {
+                question: "Which of the following is considered a market risk?",
+                options: ["Credit risk", "Operational risk", "Interest rate risk", "Liquidity risk"],
+                answer: "Interest rate risk"
+            },
+            {
+                question: "What does the Capital Adequacy Ratio (CAR) measure in a bank?",
+                options: ["Liquidity position", "Operational efficiency", "Creditworthiness", "Capital stability"],
+                answer: "Capital stability"
+            },
+            {
+                question: "What is the main objective of corporate governance in financial institutions?",
+                options: ["Maximizing profits", "Reducing operational costs", "Ensuring transparency and accountability", "Expanding market share"],
+                answer: "Ensuring transparency and accountability"
+            },
+            {
+                question: "Which of the following is a non-performing asset (NPA)?",
+                options: ["An asset with regular interest payments", "An asset overdue for 30 days", "An asset overdue for 90 days", "An asset generating lower than expected returns"],
+                answer: "An asset overdue for 90 days"
+            },
+            {
+                question: "Which strategy involves holding a diversified portfolio to reduce unsystematic risk?",
+                options: ["Market timing", "Stock picking", "Hedging", "Diversification"],
+                answer: "Diversification"
+            },
+            {
+                question: "What is the primary purpose of an emergency fund in personal financial planning?",
+                options: ["To invest in high-risk opportunities", "To save for long-term goals", "To cover unexpected expenses", "To reduce tax liabilities"],
+                answer: "To cover unexpected expenses"
+            },
+            {
+                question: "What is the key objective of Anti-Money Laundering (AML) regulations?",
+                options: ["To increase banking efficiency", "To enhance customer satisfaction", "To prevent illicit financial activities", "To improve credit risk assessment"],
+                answer: "To prevent illicit financial activities"
+            },
+            {
+                question: "Which technology is primarily used for secure and seamless online financial transactions?",
+                options: ["Blockchain", "Cloud computing", "Artificial intelligence", "Big data analytics"],
+                answer: "Blockchain"
+            },
+            {
+                question: "What is the main purpose of using financial derivatives?",
+                options: ["To speculate on future price movements", "To hedge against potential losses", "To increase investment returns", "To diversify an investment portfolio"],
+                answer: "To hedge against potential losses"
+            },
+            {
+                question: "What does the Sharpe Ratio measure in portfolio management?",
+                options: ["Portfolio diversification", "Risk-adjusted return", "Absolute return", "Market volatility"],
+                answer: "Risk-adjusted return"
+            },
+            {
+                question: "What is the primary goal of microfinance?",
+                options: ["To provide large loans to businesses", "To promote financial inclusion for low-income individuals", "To offer investment opportunities for wealthy clients", "To maximize profits for financial institutions"],
+                answer: "To promote financial inclusion for low-income individuals"
+            },
+            {
+                question: "Which organization typically assigns credit ratings to corporate bonds?",
+                options: ["SEBI", "RBI", "CRISIL", "NITI Aayog"],
+                answer: "CRISIL"
+            },
+            {
+                question: "What is the primary function of a correspondent bank?",
+                options: ["To provide loans to other banks", "To facilitate international financial transactions", "To offer retail banking services", "To invest in government securities"],
+                answer: "To facilitate international financial transactions"
+            },
+            {
+                question: "Which of the following is an example of a leading economic indicator?",
+                options: ["Gross Domestic Product (GDP)", "Consumer Price Index (CPI)", "Unemployment rate", "Stock market indices"],
+                answer: "Stock market indices"
+            },
+            {
+                question: "Which type of banking fraud involves the unauthorized use of a customer's financial information?",
+                options: ["Phishing", "Money laundering", "Insider trading", "Ponzi scheme"],
+                answer: "Phishing"
+            },
+            {
+                question: "What is the primary objective of asset-liability management (ALM)?",
+                options: ["To maximize return on assets", "To manage liquidity and financial risks", "To reduce operational costs", "To increase market share"],
+                answer: "To manage liquidity and financial risks"
+            },
+            {
+                question: "What does KYC stand for in banking?",
+                options: ["Know Your Corporation", "Know Your Customer", "Know Your Credit", "Know Your Capital"],
+                answer: "Know Your Customer"
+            },
+            {
+                question: "Which of the following is a characteristic of a callable bond?",
+                options: ["It cannot be redeemed before maturity", "It offers a fixed interest rate", "It can be redeemed by the issuer before maturity", "It provides dividends instead of interest"],
+                answer: "It can be redeemed by the issuer before maturity"
+            },
+            {
+                question: "What does the term 'currency peg' refer to in the context of foreign exchange?",
+                options: ["A flexible exchange rate system", "A fixed exchange rate system", "A floating interest rate mechanism", "A monetary policy tool"],
+                answer: "A fixed exchange rate system"
+            },
+            {
+                question: "What is the main purpose of underwriting in insurance?",
+                options: ["To assess and mitigate the risk of insurance applicants", "To sell insurance policies to customers", "To provide customer service for policyholders", "To manage claims for insurance policies"],
+                answer: "To assess and mitigate the risk of insurance applicants"
+            },
+            {
+                question: "Which of the following is a primary source of financing for corporations?",
+                options: ["Trade credit", "Retained earnings", "Corporate social responsibility funds", "Capital gains"],
+                answer: "Retained earnings"
+            },
+            {
+                question: "What is the main characteristic of a mortgage loan?",
+                options: ["It is an unsecured loan", "It is used for purchasing real estate", "It has a fixed repayment schedule", "It does not require collateral"],
+                answer: "It is used for purchasing real estate"
+            },
+            {
+                question: "Which financial statement provides information about a company’s revenues and expenses over a period?",
+                options: ["Balance sheet", "Cash flow statement", "Income statement", "Statement of changes in equity"],
+                answer: "Income statement"
+            },
+            {
+                question: "What is the primary purpose of a credit default swap (CDS)?",
+                options: ["To insure against interest rate fluctuations", "To hedge against the risk of default by a borrower", "To facilitate currency exchange transactions", "To provide capital appreciation"],
+                answer: "To hedge against the risk of default by a borrower"
+            },
+            {
+                question: "Which of the following methods is used to value a stock by examining the company's financial statements?",
+                options: ["Technical analysis", "Fundamental analysis", "Behavioral analysis", "Quantitative analysis"],
+                answer: "Fundamental analysis"
+            },
+            {
+                question: "Which of the following is an example of operational risk in banking?",
+                options: ["Changes in interest rates", "Poor strategic decisions", "IT system failures", "Fluctuations in foreign exchange rates"],
+                answer: "IT system failures"
+            },
+            {
+                question: "What is the primary purpose of the Banking Ombudsman Scheme in India?",
+                options: ["To provide low-interest loans to the public", "To address grievances of bank customers", "To regulate banking operations", "To set interest rates for savings accounts"],
+                answer: "To address grievances of bank customers"
+            },
+            {
+                question: "Which principle of insurance involves the insurer compensating the insured for the loss incurred?",
+                options: ["Indemnity", "Subrogation", "Contribution", "Proximate cause"],
+                answer: "Indemnity"
+            },
+            {
+                question: "What is the purpose of asset allocation in investment strategy?",
+                options: ["To maximize returns by investing in a single asset class", "To diversify investments across various asset classes", "To minimize transaction costs", "To align investments with tax regulations"],
+                answer: "To diversify investments across various asset classes"
+            },
+            {
+                question: "Under which Act does the Reserve Bank of India have the authority to regulate the issue of bank notes?",
+                options: ["Banking Regulation Act, 1949", "Reserve Bank of India Act, 1934", "Companies Act, 2013", "Negotiable Instruments Act, 1881"],
+                answer: "Reserve Bank of India Act, 1934"
+            },
+            {
+                question: "What is the primary characteristic of a mutual fund's NAV (Net Asset Value)?",
+                options: ["It represents the fund's total assets", "It indicates the fund's performance", "It is calculated daily and reflects the per-share value", "It measures the fund's liquidity"],
+                answer: "It is calculated daily and reflects the per-share value"
+            },
+            {
+                question: "What is the main advantage of using Automated Teller Machines (ATMs)?",
+                options: ["They provide high-interest rates on deposits", "They offer real-time foreign exchange services", "They allow for 24/7 banking transactions", "They facilitate loan applications"],
+                answer: "They allow for 24/7 banking transactions"
+            },
+            {
+                question: "Which ratio is used to assess the creditworthiness of a borrower?",
+                options: ["Price-to-earnings ratio", "Debt-to-income ratio", "Inventory turnover ratio", "Asset turnover ratio"],
+                answer: "Debt-to-income ratio"
+            },
+            {
+                question: "Which type of insurance policy provides coverage for multiple risks under a single contract?",
+                options: ["Single-line policy", "Multi-line policy", "Term policy", "Endowment policy"],
+                answer: "Multi-line policy"
+            },
+            {
+                question: "Which technology is used to facilitate peer-to-peer lending platforms?",
+                options: ["Distributed ledger technology", "Internet of Things (IoT)", "Cloud storage", "Artificial intelligence"],
+                answer: "Distributed ledger technology"
+            },
+            {
+                question: "What is the role of a clearinghouse in a stock exchange?",
+                options: ["To execute trade orders", "To match buyers and sellers", "To facilitate the settlement of trades", "To provide market data analytics"],
+                answer: "To facilitate the settlement of trades"
+            },
+            {
+                question: "Which of the following is a common measure of a company's liquidity?",
+                options: ["Return on investment", "Asset turnover", "Current ratio", "Debt-to-equity ratio"],
+                answer: "Current ratio"
+            },
+            {
+                question: "Which type of risk arises from changes in the general economic conditions affecting all investments?",
+                options: ["Systematic risk", "Unsystematic risk", "Credit risk", "Operational risk"],
+                answer: "Systematic risk"
+            },
+            {
+                question: "Which financial instrument gives the holder the right, but not the obligation, to buy or sell an asset at a predetermined price?",
+                options: ["Future contract", "Option", "Forward contract", "Swap"],
+                answer: "Option"
+            },
+        ];
 
-            function createQuestionElement(question, index) {
-                const questionDiv = document.createElement("div");
-                questionDiv.className = "question";
-                questionDiv.innerHTML = `
+        function createQuestionElement(question, index) {
+            const questionDiv = document.createElement("div");
+            questionDiv.className = "question";
+            questionDiv.innerHTML = `
             <p>${index + 1}. ${question.question}</p>
             ${question.options.map((option, i) => `
                 <label>
@@ -691,174 +691,174 @@
                 </label>
             `).join('')}
         `;
-                return questionDiv;
-            }
+            return questionDiv;
+        }
 
-            questionsPage.style.display = "block";
-            shuffle(questions);
-            const selectedQuestions = questions.slice(0, 20);
+        questionsPage.style.display = "block";
+        shuffle(questions);
+        const selectedQuestions = questions.slice(0, 20);
 
+        selectedQuestions.forEach((question, index) => {
+            shuffle(question.options);
+            quizForm.appendChild(createQuestionElement(question, index));
+        });
+
+        startTimer(300, timerElement);
+
+        quizForm.addEventListener("submit", function (event) {
+            event.preventDefault();
+            let score = 0;
+            const formData = new FormData(quizForm);
+            const userAnswers = [];
             selectedQuestions.forEach((question, index) => {
-                shuffle(question.options);
-                quizForm.appendChild(createQuestionElement(question, index));
-            });
-
-            startTimer(300, timerElement);
-
-            quizForm.addEventListener("submit", function (event) {
-                event.preventDefault();
-                let score = 0;
-                const formData = new FormData(quizForm);
-                const userAnswers = [];
-                selectedQuestions.forEach((question, index) => {
-                    const userAnswer = formData.get(`question${index}`);
-                    if (userAnswer === question.answer) {
-                        score++;
-                    }
-                    userAnswers.push({
-                        question: question.question,
-                        options: question.options,
-                        answer: question.answer,
-                        user_answer: userAnswer
-                    });
+                const userAnswer = formData.get(`question${index}`);
+                if (userAnswer === question.answer) {
+                    score++;
+                }
+                userAnswers.push({
+                    question: question.question,
+                    options: question.options,
+                    answer: question.answer,
+                    user_answer: userAnswer
                 });
-                const percentage = (score / selectedQuestions.length) * 100;
-                const resultText = getResultText(percentage);
-                displayResult(score, percentage, resultText);
-                submitScoreToAPI(score, percentage, resultText, userAnswers);
-
-                // trigger activity
-                if (!!phoneNumber) {
-                    fetch(`https://prodn.expertrons.com/api/admin/marketingUnath/addLSQActivity?mobile=${phoneNumber}&eventId=254&mx_Custom_2=BFSI%20Assessment`, {
-                        method: 'GET',
-                    })
-                        .then(response => response.json())
-                        .then(data => {
-                            console.log('Submission API Success:', data);
-                        })
-                        .catch((error) => {
-                            console.error('Submission API Error:', error);
-                        });
-                }
             });
-
-            function startTimer(duration, display) {
-                let timer = duration, minutes, seconds;
-                const interval = setInterval(function () {
-                    minutes = parseInt(timer / 60, 10);
-                    seconds = parseInt(timer % 60, 10);
-
-                    minutes = minutes < 10 ? "0" + minutes : minutes;
-                    seconds = seconds < 10 ? "0" + seconds : seconds;
-
-                    display.textContent = minutes + ":" + seconds;
-
-                    if (--timer < 0) {
-                        clearInterval(interval);
-                        displayResult(0, 0, "FAIL");
-                    }
-                }, 1000);
-            }
-
-            function displayResult(score, percentage, resultText) {
-                questionsPage.style.display = "none";
-                result.style.display = "block";
-
-                if (percentage >= 50) {
-                    circularProgress.style.display = "block";
-                    failContent.style.display = "none";
-                    percentageSpan.textContent = `${percentage.toFixed(0)}%`;
-                    scoreDetailsSpan.textContent = `${score} out of ${selectedQuestions.length}`;
-                    circularProgress.style.background = `conic-gradient(green ${percentage}%, #ddd ${percentage}%)`;
-                } else {
-                    circularProgress.style.display = "none";
-                    failContent.style.display = "block";
-                }
-
-                if (!!phoneNumber) {
-                    fetch(`https://prodn.expertrons.com/api/admin/marketingUnath/updateDataInLSQ?Phone=${phoneNumber}&mx_Result=Pass&mx_Overall_Score=20`, {
-                        method: 'GET',
-                    })
-                        .then(response => response.json())
-                        .then(data => {
-                            console.log('Results API Success:', data);
-                        })
-                        .catch((error) => {
-                            console.error('Results API Error:', error);
-                        });
-                }
-            }
-
-            function getResultText(percentage) {
-                if (percentage >= 95) {
-                    return "EXCELLENT";
-                } else if (percentage >= 90) {
-                    return "VERY GOOD";
-                } else if (percentage >= 70) {
-                    return "GOOD";
-                } else {
-                    return "FAIL";
-                }
-            }
-
-            const urlParams = new URLSearchParams(window.location.search);
-            const userId = urlParams.get('id'); // Updated to fetch 'id' from URL
-            let phoneNumber = urlParams.get('mobile');
-
-            if (!!phoneNumber) {
-                phoneNumber = phoneNumber.replace(/[-+ ]/g, '');
-                if (phoneNumber.length > 10) {
-                    phoneNumber = phoneNumber.slice(phoneNumber.length - 10, phoneNumber.length);
-                }
-            }
-
-
-
-            function submitScoreToAPI(score, percentage, resultText, userAnswers) {
-                if (!userId || userId === 'test') {
-                    console.log('Skipping API call due to missing or invalid userId');
-                    return;
-                }
-
-                const payload = {
-                    userId: userId,
-                    questions: userAnswers,
-                    percentage: percentage,
-                    result: resultText
-                };
-
-                fetch('https://prodn.expertrons.com/api/external/user-assessment/add-quiz-data', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': 'Bearer NS0vX1EiTcLmdAbckBawdHQHbGopf4p3R6hKVbbJ',
-                    },
-                    body: JSON.stringify(payload),
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        console.log('Success:', data);
-                    })
-                    .catch((error) => {
-                        console.error('Error:', error);
-                    });
-            }
+            const percentage = (score / selectedQuestions.length) * 100;
+            const resultText = getResultText(percentage);
+            displayResult(score, percentage, resultText);
+            submitScoreToAPI(score, percentage, resultText, userAnswers);
 
             // trigger activity
             if (!!phoneNumber) {
-                fetch(`https://prodn.expertrons.com/api/admin/marketingUnath/addLSQActivity?mobile=${phoneNumber}&eventId=252&mx_Custom_1=BFSI%20Assessment`, {
+                fetch(`https://prodn.expertrons.com/api/admin/marketingUnath/addLSQActivity?mobile=${phoneNumber}&eventId=254&mx_Custom_2=BFSI%20Assessment`, {
                     method: 'GET',
                 })
                     .then(response => response.json())
                     .then(data => {
-                        console.log('Landing API Success:', data);
+                        console.log('Submission API Success:', data);
                     })
                     .catch((error) => {
-                        console.error('Landing API Error:', error);
+                        console.error('Submission API Error:', error);
                     });
             }
         });
-    </script>
+
+        function startTimer(duration, display) {
+            let timer = duration, minutes, seconds;
+            const interval = setInterval(function () {
+                minutes = parseInt(timer / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                display.textContent = minutes + ":" + seconds;
+
+                if (--timer < 0) {
+                    clearInterval(interval);
+                    displayResult(0, 0, "FAIL");
+                }
+            }, 1000);
+        }
+
+        function displayResult(score, percentage, resultText) {
+            questionsPage.style.display = "none";
+            result.style.display = "block";
+
+            if (percentage >= 50) {
+                circularProgress.style.display = "block";
+                failContent.style.display = "none";
+                percentageSpan.textContent = `${percentage.toFixed(0)}%`;
+                scoreDetailsSpan.textContent = `${score} out of ${selectedQuestions.length}`;
+                circularProgress.style.background = `conic-gradient(green ${percentage}%, #ddd ${percentage}%)`;
+            } else {
+                circularProgress.style.display = "none";
+                failContent.style.display = "block";
+            }
+
+            if (!!phoneNumber) {
+                fetch(`https://prodn.expertrons.com/api/admin/marketingUnath/updateDataInLSQ?Phone=${phoneNumber}&mx_Result=${resultText}&mx_Overall_Score=${percentage}`, {
+                    method: 'GET',
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Results API Success:', data);
+                    })
+                    .catch((error) => {
+                        console.error('Results API Error:', error);
+                    });
+            }
+        }
+
+        function getResultText(percentage) {
+            if (percentage >= 95) {
+                return "EXCELLENT";
+            } else if (percentage >= 90) {
+                return "VERY GOOD";
+            } else if (percentage >= 70) {
+                return "GOOD";
+            } else {
+                return "FAIL";
+            }
+        }
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const userId = urlParams.get('id'); // Updated to fetch 'id' from URL
+        let phoneNumber = urlParams.get('mobile');
+
+        if (!!phoneNumber) {
+            phoneNumber = phoneNumber.replace(/[-+ ]/g, '');
+            if (phoneNumber.length > 10) {
+                phoneNumber = phoneNumber.slice(phoneNumber.length - 10, phoneNumber.length);
+            }
+        }
+
+
+
+        function submitScoreToAPI(score, percentage, resultText, userAnswers) {
+            if (!userId || userId === 'test') {
+                console.log('Skipping API call due to missing or invalid userId');
+                return;
+            }
+
+            const payload = {
+                userId: userId,
+                questions: userAnswers,
+                percentage: percentage,
+                result: resultText
+            };
+
+            fetch('https://prodn.expertrons.com/api/external/user-assessment/add-quiz-data', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer NS0vX1EiTcLmdAbckBawdHQHbGopf4p3R6hKVbbJ',
+                },
+                body: JSON.stringify(payload),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Success:', data);
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+        }
+
+        // trigger activity
+        if (!!phoneNumber) {
+            fetch(`https://prodn.expertrons.com/api/admin/marketingUnath/addLSQActivity?mobile=${phoneNumber}&eventId=252&mx_Custom_1=BFSI%20Assessment`, {
+                method: 'GET',
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Landing API Success:', data);
+                })
+                .catch((error) => {
+                    console.error('Landing API Error:', error);
+                });
+        }
+    });
+</script>
 
 </body>
 
