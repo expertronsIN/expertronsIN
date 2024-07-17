@@ -729,16 +729,17 @@
             }
 
             // New API call on results page display
-            fetch(`https://prodn.expertrons.com/api/admin/marketingUnath/updateDataInLSQ?Phone=${phoneNumber}&mx_Result=Pass&mx_Overall_Score=20`, {
-                method: 'GET',
-            })
-                .then(response => response.json())
-                .then(data => {
-                    console.log('Results API Success:', data);
-                })
-                .catch((error) => {
-                    console.error('Results API Error:', error);
-                });
+           fetch(`https://prodn.expertrons.com/api/admin/marketingUnath/updateDataInLSQ?Phone=${phoneNumber}&mx_Result=${resultText}&mx_Overall_Score=${percentage}`, {
+    method: 'GET',
+})
+.then(response => response.json())
+.then(data => {
+    console.log('Results API Success:', data);
+})
+.catch((error) => {
+    console.error('Results API Error:', error);
+});
+
         }
 
         function getResultText(percentage) {
@@ -790,7 +791,7 @@
         }
 
         // New API call on page load
-        fetch('https://prodn.expertrons.com/api/admin/marketingUnath/addLSQActivity?mobile=${phoneNumber}&eventId=252&mx_Custom_1=BFSI%20Assessment', {
+        fetch('https://prodn.expertrons.com/api/admin/marketingUnath/addLSQActivity?mobile=${phoneNumber}&eventId=252&mx_Custom_2=BFSI%20Assessment&mx_Custom_3=mx_Overall_Score=${percentage}', {
             method: 'GET',
         })
             .then(response => response.json())
