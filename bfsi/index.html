@@ -790,18 +790,19 @@
                 });
         }
 
+     
         // New API call on page load
-        fetch('https://prodn.expertrons.com/api/admin/marketingUnath/addLSQActivity?mobile=${phoneNumber}&eventId=252&mx_Custom_2=BFSI%20Assessment&mx_Custom_3=mx_Overall_Score=${percentage}', {
-            method: 'GET',
-        })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Landing API Success:', data);
-            })
-            .catch((error) => {
-                console.error('Landing API Error:', error);
-            });
-    });
+fetch(`https://prodn.expertrons.com/api/admin/marketingUnath/addLSQActivity?mobile=${phoneNumber}&eventId=252&mx_Custom_2=BFSI%20Assessment&mx_Custom_3=mx_Overall_Score=${percentage}`, {
+    method: 'GET',
+})
+.then(response => response.json())
+.then(data => {
+    console.log('Landing API Success:', data);
+})
+.catch((error) => {
+    console.error('Landing API Error:', error);
+});
+
 </script>
 
 
